@@ -18,6 +18,10 @@ public class Level {
         this.degree = degree;
     }
 
+    public void setIdLevel(int idLevel) {
+        this.idLevel = idLevel;
+    }
+
     public int getIdLevel() {
         return idLevel;
     }
