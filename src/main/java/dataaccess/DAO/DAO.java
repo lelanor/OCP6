@@ -8,7 +8,7 @@ public abstract class DAO<T>  {
 
     public abstract T create (EntityManagerFactory entityManagerFactory, T object);
 
-    public abstract T update(EntityManagerFactory entityManagerFactory, T object);
+    public abstract T update(EntityManagerFactory entityManagerFactory,int id, T object);
 
     public abstract void delete(EntityManagerFactory entityManagerFactory, T object);
 }
