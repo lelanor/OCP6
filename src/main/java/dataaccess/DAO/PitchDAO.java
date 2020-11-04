@@ -1,62 +1,63 @@
 package dataaccess.DAO;
 
-import dataaccess.DTO.Level;
+import dataaccess.DTO.Pitch;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class LevelDAO extends DAO<Level> {
+public class PitchDAO extends DAO<Pitch> {
 
     @Override
-    public Level findById(EntityManagerFactory entityManagerFactory, int id) {
+    public Pitch findById(EntityManagerFactory entityManagerFactory, int id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Level level = entityManager.find(Level.class, id);
+        Pitch pitch = entityManager.find(Pitch.class, id);
         entityManager.close();
-        return level;
+        return pitch;
     }
 
     @Override
-    public List<Level> findAll(EntityManagerFactory entityManagerFactory) {
+    public List<Pitch> findAll(EntityManagerFactory entityManagerFactory) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Level> levels = entityManager.createQuery("from Level", Level.class).getResultList();
+        List<Pitch> pitches = entityManager.createQuery("from Pitch", Pitch.class).getResultList();
         entityManager.close();
-        return levels;
+        return pitches;
     }
 
     @Override
-    public Level create(EntityManagerFactory entityManagerFactory, Level object) {
+    public Pitch create(EntityManagerFactory entityManagerFactory, Pitch object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(object);
         transaction.commit();
-        object = entityManager.find(Level.class, object.getIdLevel());
+        object = entityManager.find(Pitch.class, object.getIdPitch());
         entityManager.close();
         return object;
     }
 
     @Override
-    public Level update(EntityManagerFactory entityManagerFactory, int id, Level object) {
+    public Pitch update(EntityManagerFactory entityManagerFactory, int id, Pitch object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Level updatedLevel = entityManager.find(Level.class, id);
-        updatedLevel.setDegree(object.getDegree());
-        entityManager.persist(updatedLevel);
+        Pitch modifiedPitch = entityManager.find(Pitch.class,id);
+        modifiedPitch.setDegree(object.getDegree());
+        modifiedPitch.setName(object.getName());
+        entityManager.persist(modifiedPitch);
         transaction.commit();
-        updatedLevel = entityManager.find(Level.class, id);
+        object = entityManager.find(Pitch.class, modifiedPitch.getIdPitch());
         entityManager.close();
-        return updatedLevel;
+        return object;
     }
 
     @Override
-    public void delete(EntityManagerFactory entityManagerFactory, Level object) {
+    public void delete(EntityManagerFactory entityManagerFactory, Pitch object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        entityManager.remove(entityManager.find(Level.class,object.getIdLevel()));
+        entityManager.remove(entityManager.find(Pitch.class, object.getIdPitch()));
         transaction.commit();
         entityManager.close();
     }
