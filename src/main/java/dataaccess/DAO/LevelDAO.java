@@ -30,11 +30,25 @@ public class LevelDAO extends DAO<Level> {
 
     @Override
     public Level update(EntityManagerFactory entityManagerFactory, int id, Level object) {
-        return null;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        Level updatedLevel = entityManager.find(Level.class, id);
+        updatedLevel.setDegree(object.getDegree());
+        entityManager.persist(updatedLevel);
+        transaction.commit();
+        updatedLevel = entityManager.find(Level.class, id);
+        entityManager.close();
+        return updatedLevel;
     }
 
     @Override
     public void delete(EntityManagerFactory entityManagerFactory, Level object) {
-
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.remove(entityManager.find(Level.class,object.getIdLevel()));
+        transaction.commit();
+        entityManager.close();
     }
 }

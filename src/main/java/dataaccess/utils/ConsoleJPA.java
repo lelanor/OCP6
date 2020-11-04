@@ -51,6 +51,9 @@ public class ConsoleJPA {
         }*/
         LevelDAO levelDAO = new LevelDAO();
         System.out.println(levelDAO.findById(DBConnectionManager.getEntityManagerFactory("default"),1));
+        Level level = levelDAO.findById(DBConnectionManager.getEntityManagerFactory("default"),1);
+        levelDAO.delete(DBConnectionManager.getEntityManagerFactory("default"),level);
+        System.out.println(levelDAO.findById(DBConnectionManager.getEntityManagerFactory("default"),1));
         DBConnectionManager.closeEntityManagerFactory();
 
     }
