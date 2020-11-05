@@ -30,7 +30,33 @@
     </index>
    </folder>
   </table>
+  <table id="TAB6" populated="true" UUID="3d31eb6e-b515-4e40-b948-3954f154761f" name="T_pitch" objectType="TABLE" physicalName="T_pitch" >
+   <remarks></remarks>
+   <folder id="FOLTAB61" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL7" populated="true" UUID="87de3bf0-12da-477d-87e7-61cddb0d520c" autoIncrement="true" autoIncrementSequenceName="T_pitch_idPitch_seq" defaultValue="" name="idPitch" nullable="0" physicalName="idPitch" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL8" populated="true" UUID="9fb692ca-9e81-4eb0-81b8-b6e13cae3f3e" autoIncrement="false" autoIncrementSequenceName="T_pitch_name_seq" defaultValue="" name="name" nullable="0" physicalName="name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL9" populated="true" UUID="d00a30cb-db2c-4806-8be6-a7e392db8ed3" autoIncrement="false" autoIncrementSequenceName="T_level_idLevel_seq_1" defaultValue="" name="idLevel" nullable="0" physicalName="idLevel" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB63" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB62" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB64" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX10" populated="true" UUID="a1ffe222-eb04-42c3-801c-e893def5eb6c" clustered="false" name="T_pitch_pk" physicalName="t_pitch_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC11" populated="true" UUID="2a052e6f-a18b-4dd5-bcc3-0277cd3c1bff" ascendingOrDescending="UNSPECIFIED" column-ref="COL7" name="idPitch" physicalName="idPitch" />
+    </index>
+   </folder>
+  </table>
   <relationships>
+   <relationship id="REL12" populated="true" UUID="32ba884d-402c-46e3-a033-d29fe264fb2b" deferrability="7" deleteRule="3" fk-table-ref="TAB6" fkCardinality="7" identifying="false" name="T_level_T_pitch_fk" physicalName="t_level_t_pitch_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP13" populated="true" UUID="17d8a92d-fec3-48db-b9c2-eb782b617e8b" fk-column-ref="COL9" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
+   </relationship>
   </relationships>
  </target-database>
  <ddl-generator type="ca.sqlpower.architect.ddl.PostgresDDLGenerator" allow-connection="false" target-schema="public"> </ddl-generator>
@@ -38,6 +64,8 @@
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
  <play-pen zoom="1.0" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
   <table-pane table-ref="TAB1" x="455" y="237" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB6" x="865" y="238" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-link relationship-ref="REL12" pkConnection="0.5263157894736842" fkConnection="0.4647887323943662" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
  </play-pen>
  <critic-manager>
   <critic-grouping platformType="Generic" enabled="true">

@@ -1,28 +1,36 @@
 package dataaccess.DAO;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PitchDAOTest {
 
-    @Test
-    void findById() {
+    EntityManagerFactory entityManagerFactory;
+
+    @BeforeEach
+    void connectBase() {
+        entityManagerFactory = Persistence.createEntityManagerFactory("test");
+        System.out.println("connection OK");
     }
 
-    @Test
-    void findAll() {
-    }
 
     @Test
-    void create() {
+    void embarkingLevelTest(){
+        PitchDAO dao =new PitchDAO();
+        assertEquals("5a", dao.findById(entityManagerFactory,3).getDegree().getDegree());
     }
 
-    @Test
-    void update() {
-    }
 
-    @Test
-    void delete() {
+
+    @AfterEach
+    void closeConnection() {
+        entityManagerFactory.close();
+        System.out.println("Connection closed");
     }
 }
