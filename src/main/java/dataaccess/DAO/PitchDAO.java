@@ -57,7 +57,9 @@ public class PitchDAO extends DAO<Pitch> {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        entityManager.remove(entityManager.find(Pitch.class, object.getIdPitch()));
+        Pitch toDelete = entityManager.find(Pitch.class, object.getIdPitch());
+        System.out.println(toDelete);
+        entityManager.remove(toDelete);
         transaction.commit();
         entityManager.close();
     }

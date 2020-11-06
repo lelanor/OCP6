@@ -14,18 +14,18 @@ public class Track {
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable( name = "T_pitch_track_Association",
             joinColumns = @JoinColumn( name = "idTrack" ),
             inverseJoinColumns = @JoinColumn( name = "idPitch" ) )
-    private List<Pitch> roles = new ArrayList<>();
+    private List<Pitch> pitches = new ArrayList<>();
 
     public Track() {
     }
 
-    public Track(String name, List<Pitch> roles) {
+    public Track(String name, List<Pitch> pitches) {
         this.name = name;
-        this.roles = roles;
+        this.pitches = pitches;
     }
 
     public int getId() {
@@ -40,12 +40,12 @@ public class Track {
         this.name = name;
     }
 
-    public List<Pitch> getRoles() {
-        return roles;
+    public List<Pitch> getPitches() {
+        return pitches;
     }
 
-    public void setRoles(List<Pitch> roles) {
-        this.roles = roles;
+    public void setPitches(List<Pitch> pitches) {
+        this.pitches = pitches;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Track {
         return "Track{" +
                 "Id=" + Id +
                 ", name='" + name + '\'' +
-                ", roles=" + roles +
+                ", roles=" + pitches +
                 '}';
     }
 }

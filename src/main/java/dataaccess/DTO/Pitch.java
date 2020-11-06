@@ -18,11 +18,11 @@ public class Pitch {
     @JoinColumn(name = "idLevel", nullable = false)
     private Level degree;
 
-    @ManyToMany
-    @JoinTable( name = "T_pitch_track_association",
-            joinColumns = @JoinColumn( name = "idPitch" ),
-            inverseJoinColumns = @JoinColumn( name = "idTrack" ) )
-    private List<Track> roles = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "T_pitch_track_association",
+            joinColumns = @JoinColumn(name = "idPitch"),
+            inverseJoinColumns = @JoinColumn(name = "idTrack"))
+    private List<Track> tracks = new ArrayList<>();
 
     public Pitch() {
     }
@@ -36,12 +36,12 @@ public class Pitch {
         return IdPitch;
     }
 
-    public List<Track> getRoles() {
-        return roles;
+    public List<Track> getTracks() {
+        return tracks;
     }
 
-    public void setRoles(List<Track> roles) {
-        this.roles = roles;
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
     }
 
     public String getName() {
