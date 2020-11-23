@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "T_pitch")
+@Table(name = "PITCH")
 public class Pitch {
 
     @Id
@@ -19,7 +19,7 @@ public class Pitch {
     private Level degree;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "T_pitch_track_association",
+    @JoinTable(name = "TRACK_PITCH",
             joinColumns = @JoinColumn(name = "idPitch"),
             inverseJoinColumns = @JoinColumn(name = "idTrack"))
     private List<Track> tracks = new ArrayList<>();

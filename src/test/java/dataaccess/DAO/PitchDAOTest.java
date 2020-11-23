@@ -27,7 +27,7 @@ class PitchDAOTest {
     @Test
     void embarkingLevelTest() {
         PitchDAO dao = new PitchDAO();
-        assertEquals("6a", dao.findById(entityManagerFactory, 3).getDegree().getDegree());
+        assertEquals("4a", dao.findById(entityManagerFactory, 11).getDegree().getDegree());
     }
 
     @Test
@@ -53,9 +53,9 @@ class PitchDAOTest {
     void updateTest() {
         EntityManager em = entityManagerFactory.createEntityManager();
         PitchDAO dao = new PitchDAO();
-        Pitch newPitch = em.find(Pitch.class, 3);
+        Pitch newPitch = em.find(Pitch.class, 11);
         newPitch.setName("test pitch");
-        Pitch updatedPitch = dao.update(entityManagerFactory, 3, newPitch);
+        Pitch updatedPitch = dao.update(entityManagerFactory, 11, newPitch);
         assertEquals(newPitch.getName(), updatedPitch.getName());
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();

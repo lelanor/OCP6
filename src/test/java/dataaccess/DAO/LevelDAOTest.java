@@ -11,7 +11,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 class LevelDAOTest {
 
@@ -26,14 +25,14 @@ class LevelDAOTest {
     @Test
     void findByIdTest() {
         LevelDAO dao = new LevelDAO();
-        Level result = dao.findById(entityManagerFactory, 13);
+        Level result = dao.findById(entityManagerFactory, 18);
         assertEquals("7a", result.getDegree());
     }
 
     @Test
     void createTest() {
         LevelDAO dao = new LevelDAO();
-        Level newLevel = new Level("create test");
+        Level newLevel = new Level("tst");
         Level checkLevel = dao.create(entityManagerFactory, newLevel);
         assertEquals(newLevel, checkLevel);
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -47,9 +46,9 @@ class LevelDAOTest {
     @Test
     void updateTest() {
         LevelDAO dao = new LevelDAO();
-        Level updatedLevel = new Level("updated test");
+        Level updatedLevel = new Level("upd");
         Level checkLevel = dao.update(entityManagerFactory, 1, updatedLevel);
-        assertEquals("updated test", checkLevel.getDegree());
+        assertEquals("upd", checkLevel.getDegree());
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();

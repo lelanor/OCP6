@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="OCP6@localhost" uuid="fe39864a-8e2a-4202-beb3-cf26286c462a">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/OCP6</jdbc-url>
-    </data-source>
     <data-source source="LOCAL" name="ocp6test@localhost" uuid="a28d4ee3-c748-40e5-a0da-95ba8ca12092">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
@@ -22,6 +16,12 @@
 D:/AmisEscaladeApp/src/main/resources/META-INF/persistence.xml</remarks>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/OCP6</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="testOCP6@localhost" uuid="ca95d469-90aa-4ec6-b7d7-41679abf1aae">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/testOCP6</jdbc-url>
     </data-source>
   </component>
 </project>

@@ -16,7 +16,7 @@
             <property name="hibernate.connection.driver.class" value="org.postgresql.Driver"/>
             <property name="hibernate.connection.username" value="enrico"/>
             <property name="hibernate.connection.password" value="AejRmu201429pos"/>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/ocp6test"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/testOCP6_2"/>
             <property name="connection_pool_size" value="1"/>
             <property name="show_sql" value="true"/>
         </properties>
