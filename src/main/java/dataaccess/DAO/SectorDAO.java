@@ -1,61 +1,62 @@
 package dataaccess.DAO;
 
-import dataaccess.DTO.Track;
+import dataaccess.DTO.Sector;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class TrackDAO extends DAO<Track> {
+public class SectorDAO extends DAO<Sector> {
 
     @Override
-    public Track findById(EntityManagerFactory entityManagerFactory, int id) {
+    public Sector findById(EntityManagerFactory entityManagerFactory, int id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Track track = entityManager.find(Track.class, id);
+        Sector sector = entityManager.find(Sector.class, id);
         entityManager.close();
-        return track;
+        return sector;
     }
 
     @Override
-    public List<Track> findAll(EntityManagerFactory entityManagerFactory) {
+    public List<Sector> findAll(EntityManagerFactory entityManagerFactory) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Track> tracks = entityManager.createQuery("from Track", Track.class).getResultList();
+        List<Sector> sectors = entityManager.createQuery("from Sector", Sector.class).getResultList();
         entityManager.close();
-        return tracks;
+        return sectors;
     }
 
     @Override
-    public Track create(EntityManagerFactory entityManagerFactory, Track object) {
+    public Sector create(EntityManagerFactory entityManagerFactory, Sector object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(object);
         transaction.commit();
-        return entityManager.find(Track.class, object.getIdTrack());
+        entityManager.close();
+        return entityManager.find(Sector.class, object.getIdSector());
     }
 
     @Override
-    public Track update(EntityManagerFactory entityManagerFactory, int id, Track object) {
+    public Sector update(EntityManagerFactory entityManagerFactory, int id, Sector object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Track toUpdateTrack = entityManager.find(Track.class, id);
-        toUpdateTrack.setName(object.getName());
-        toUpdateTrack.setPitches(object.getPitches());
-        entityManager.persist(toUpdateTrack);
+        Sector toUpdateSector = entityManager.find(Sector.class, id);
+        toUpdateSector.setName(object.getName());
+        toUpdateSector.setTracks(object.getTracks());
+        entityManager.persist(toUpdateSector);
         transaction.commit();
-        object = entityManager.find(Track.class, toUpdateTrack.getIdTrack());
+        object = entityManager.find(Sector.class, toUpdateSector.getIdSector());
         entityManager.close();
         return object;
     }
 
     @Override
-    public void delete(EntityManagerFactory entityManagerFactory, Track object) {
+    public void delete(EntityManagerFactory entityManagerFactory, Sector object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Track toDelete = entityManager.find(Track.class, object.getIdTrack());
+        Sector toDelete = entityManager.find(Sector.class, object.getIdSector());
         System.out.println(toDelete);
         entityManager.remove(toDelete);
         transaction.commit();

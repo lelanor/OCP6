@@ -42,7 +42,7 @@ public class PitchDAO extends DAO<Pitch> {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Pitch modifiedPitch = entityManager.find(Pitch.class,id);
+        Pitch modifiedPitch = entityManager.find(Pitch.class, id);
         modifiedPitch.setDegree(object.getDegree());
         modifiedPitch.setName(object.getName());
         entityManager.persist(modifiedPitch);

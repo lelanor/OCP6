@@ -1,61 +1,64 @@
 package dataaccess.DAO;
 
-import dataaccess.DTO.Track;
+import dataaccess.DTO.Topo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class TrackDAO extends DAO<Track> {
+public class TopoDAO extends DAO<Topo> {
 
     @Override
-    public Track findById(EntityManagerFactory entityManagerFactory, int id) {
+    public Topo findById(EntityManagerFactory entityManagerFactory, int id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Track track = entityManager.find(Track.class, id);
+        Topo spot = entityManager.find(Topo.class, id);
         entityManager.close();
-        return track;
+        return spot;
     }
 
     @Override
-    public List<Track> findAll(EntityManagerFactory entityManagerFactory) {
+    public List<Topo> findAll(EntityManagerFactory entityManagerFactory) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Track> tracks = entityManager.createQuery("from Track", Track.class).getResultList();
+        List<Topo> topos = entityManager.createQuery("from Topo", Topo.class).getResultList();
         entityManager.close();
-        return tracks;
+        return topos;
     }
 
     @Override
-    public Track create(EntityManagerFactory entityManagerFactory, Track object) {
+    public Topo create(EntityManagerFactory entityManagerFactory, Topo object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(object);
         transaction.commit();
-        return entityManager.find(Track.class, object.getIdTrack());
+        entityManager.close();
+        return entityManager.find(Topo.class, object.getIdSpot());
     }
 
     @Override
-    public Track update(EntityManagerFactory entityManagerFactory, int id, Track object) {
+    public Topo update(EntityManagerFactory entityManagerFactory, int id, Topo object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Track toUpdateTrack = entityManager.find(Track.class, id);
-        toUpdateTrack.setName(object.getName());
-        toUpdateTrack.setPitches(object.getPitches());
-        entityManager.persist(toUpdateTrack);
+        Topo toUpdateTopo = entityManager.find(Topo.class, id);
+        toUpdateTopo.setName(object.getName());
+        toUpdateTopo.setMember(object.getMember());
+        toUpdateTopo.setLocation(object.getLocation());
+        toUpdateTopo.setSectors(object.getSectors());
+        entityManager.persist(toUpdateTopo);
         transaction.commit();
-        object = entityManager.find(Track.class, toUpdateTrack.getIdTrack());
+        object = entityManager.find(Topo.class, toUpdateTopo.getIdSpot());
         entityManager.close();
         return object;
     }
 
     @Override
-    public void delete(EntityManagerFactory entityManagerFactory, Track object) {
+    public void delete(EntityManagerFactory entityManagerFactory, Topo object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Track toDelete = entityManager.find(Track.class, object.getIdTrack());
+        Topo toDelete = entityManager.find(Topo.class, object.getIdSpot());
         System.out.println(toDelete);
         entityManager.remove(toDelete);
         transaction.commit();

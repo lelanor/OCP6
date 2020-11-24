@@ -10,7 +10,7 @@ public class Track {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int idTrack;
 
     private String name;
 
@@ -28,8 +28,8 @@ public class Track {
         this.pitches = pitches;
     }
 
-    public int getId() {
-        return Id;
+    public int getIdTrack() {
+        return idTrack;
     }
 
     public String getName() {
@@ -51,7 +51,7 @@ public class Track {
     @Override
     public String toString() {
         return "Track{" +
-                "Id=" + Id +
+                "Id=" + idTrack +
                 ", name='" + name + '\'' +
                 ", roles=" + pitches +
                 '}';

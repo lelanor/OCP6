@@ -1,61 +1,62 @@
 package dataaccess.DAO;
 
-import dataaccess.DTO.Track;
+import dataaccess.DTO.Spot;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class TrackDAO extends DAO<Track> {
+public class SpotDAO extends DAO<Spot> {
 
     @Override
-    public Track findById(EntityManagerFactory entityManagerFactory, int id) {
+    public Spot findById(EntityManagerFactory entityManagerFactory, int id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Track track = entityManager.find(Track.class, id);
+        Spot spot = entityManager.find(Spot.class, id);
         entityManager.close();
-        return track;
+        return spot;
     }
 
     @Override
-    public List<Track> findAll(EntityManagerFactory entityManagerFactory) {
+    public List<Spot> findAll(EntityManagerFactory entityManagerFactory) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Track> tracks = entityManager.createQuery("from Track", Track.class).getResultList();
+        List<Spot> spots = entityManager.createQuery("from Spot", Spot.class).getResultList();
         entityManager.close();
-        return tracks;
+        return spots;
     }
 
     @Override
-    public Track create(EntityManagerFactory entityManagerFactory, Track object) {
+    public Spot create(EntityManagerFactory entityManagerFactory, Spot object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(object);
         transaction.commit();
-        return entityManager.find(Track.class, object.getIdTrack());
+        entityManager.close();
+        return entityManager.find(Spot.class, object.getIdSpot());
     }
 
     @Override
-    public Track update(EntityManagerFactory entityManagerFactory, int id, Track object) {
+    public Spot update(EntityManagerFactory entityManagerFactory, int id, Spot object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Track toUpdateTrack = entityManager.find(Track.class, id);
-        toUpdateTrack.setName(object.getName());
-        toUpdateTrack.setPitches(object.getPitches());
-        entityManager.persist(toUpdateTrack);
+        Spot toUpdateSpot = entityManager.find(Spot.class, id);
+        toUpdateSpot.setName(object.getName());
+        toUpdateSpot.setSectors(object.getSectors());
+        entityManager.persist(toUpdateSpot);
         transaction.commit();
-        object = entityManager.find(Track.class, toUpdateTrack.getIdTrack());
+        object = entityManager.find(Spot.class, toUpdateSpot.getIdSpot());
         entityManager.close();
         return object;
     }
 
     @Override
-    public void delete(EntityManagerFactory entityManagerFactory, Track object) {
+    public void delete(EntityManagerFactory entityManagerFactory, Spot object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Track toDelete = entityManager.find(Track.class, object.getIdTrack());
+        Spot toDelete = entityManager.find(Spot.class, object.getIdSpot());
         System.out.println(toDelete);
         entityManager.remove(toDelete);
         transaction.commit();
