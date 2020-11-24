@@ -1,63 +1,62 @@
 package dataaccess.DAO;
 
-import dataaccess.DTO.Pitch;
+import dataaccess.DTO.Sector;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class PitchDAO extends DAO<Pitch> {
+public class SectorDAO extends DAO<Sector> {
 
     @Override
-    public Pitch findById(EntityManagerFactory entityManagerFactory, int id) {
+    public Sector findById(EntityManagerFactory entityManagerFactory, int id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Pitch pitch = entityManager.find(Pitch.class, id);
+        Sector sector = entityManager.find(Sector.class, id);
         entityManager.close();
-        return pitch;
+        return sector;
     }
 
     @Override
-    public List<Pitch> findAll(EntityManagerFactory entityManagerFactory) {
+    public List<Sector> findAll(EntityManagerFactory entityManagerFactory) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Pitch> pitches = entityManager.createQuery("from Pitch", Pitch.class).getResultList();
+        List<Sector> sectors = entityManager.createQuery("from Sector", Sector.class).getResultList();
         entityManager.close();
-        return pitches;
+        return sectors;
     }
 
     @Override
-    public Pitch create(EntityManagerFactory entityManagerFactory, Pitch object) {
+    public Sector create(EntityManagerFactory entityManagerFactory, Sector object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(object);
         transaction.commit();
-        object = entityManager.find(Pitch.class, object.getIdPitch());
         entityManager.close();
-        return object;
+        return entityManager.find(Sector.class, object.getIdSector());
     }
 
     @Override
-    public Pitch update(EntityManagerFactory entityManagerFactory, int id, Pitch object) {
+    public Sector update(EntityManagerFactory entityManagerFactory, int id, Sector object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Pitch modifiedPitch = entityManager.find(Pitch.class, id);
-        modifiedPitch.setDegree(object.getDegree());
-        modifiedPitch.setName(object.getName());
-        entityManager.persist(modifiedPitch);
+        Sector toUpdateSector = entityManager.find(Sector.class, id);
+        toUpdateSector.setName(object.getName());
+        toUpdateSector.setTracks(object.getTracks());
+        entityManager.persist(toUpdateSector);
         transaction.commit();
-        object = entityManager.find(Pitch.class, modifiedPitch.getIdPitch());
+        object = entityManager.find(Sector.class, toUpdateSector.getIdSector());
         entityManager.close();
         return object;
     }
 
     @Override
-    public void delete(EntityManagerFactory entityManagerFactory, Pitch object) {
+    public void delete(EntityManagerFactory entityManagerFactory, Sector object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Pitch toDelete = entityManager.find(Pitch.class, object.getIdPitch());
+        Sector toDelete = entityManager.find(Sector.class, object.getIdSector());
         System.out.println(toDelete);
         entityManager.remove(toDelete);
         transaction.commit();

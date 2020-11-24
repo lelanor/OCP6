@@ -1,63 +1,63 @@
 package dataaccess.DAO;
 
-import dataaccess.DTO.Pitch;
+import dataaccess.DTO.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class PitchDAO extends DAO<Pitch> {
+public class MemberDAO extends DAO<Member> {
 
     @Override
-    public Pitch findById(EntityManagerFactory entityManagerFactory, int id) {
+    public Member findById(EntityManagerFactory entityManagerFactory, int id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Pitch pitch = entityManager.find(Pitch.class, id);
+        Member member = entityManager.find(Member.class, id);
         entityManager.close();
-        return pitch;
+        return member;
     }
 
     @Override
-    public List<Pitch> findAll(EntityManagerFactory entityManagerFactory) {
+    public List<Member> findAll(EntityManagerFactory entityManagerFactory) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Pitch> pitches = entityManager.createQuery("from Pitch", Pitch.class).getResultList();
+        List<Member> members = entityManager.createQuery("from Member", Member.class).getResultList();
         entityManager.close();
-        return pitches;
+        return members;
     }
 
     @Override
-    public Pitch create(EntityManagerFactory entityManagerFactory, Pitch object) {
+    public Member create(EntityManagerFactory entityManagerFactory, Member object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(object);
         transaction.commit();
-        object = entityManager.find(Pitch.class, object.getIdPitch());
         entityManager.close();
-        return object;
+        return entityManager.find(Member.class, object.getIdMember());
     }
 
     @Override
-    public Pitch update(EntityManagerFactory entityManagerFactory, int id, Pitch object) {
+    public Member update(EntityManagerFactory entityManagerFactory, int id, Member object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Pitch modifiedPitch = entityManager.find(Pitch.class, id);
-        modifiedPitch.setDegree(object.getDegree());
-        modifiedPitch.setName(object.getName());
-        entityManager.persist(modifiedPitch);
+        Member toUpdateMember = entityManager.find(Member.class, id);
+        toUpdateMember.setName(object.getName());
+        toUpdateMember.setEmail(object.getEmail());
+        toUpdateMember.setPassword(object.getPassword());
+        entityManager.persist(toUpdateMember);
         transaction.commit();
-        object = entityManager.find(Pitch.class, modifiedPitch.getIdPitch());
+        object = entityManager.find(Member.class, toUpdateMember.getIdMember());
         entityManager.close();
         return object;
     }
 
     @Override
-    public void delete(EntityManagerFactory entityManagerFactory, Pitch object) {
+    public void delete(EntityManagerFactory entityManagerFactory, Member object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Pitch toDelete = entityManager.find(Pitch.class, object.getIdPitch());
+        Member toDelete = entityManager.find(Member.class, object.getIdMember());
         System.out.println(toDelete);
         entityManager.remove(toDelete);
         transaction.commit();

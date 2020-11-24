@@ -3,7 +3,7 @@ package dataaccess.DTO;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "T_level")
+@Table(name = "LEVEL")
 public class Level {
 
     @Id

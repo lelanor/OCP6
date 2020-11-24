@@ -1,63 +1,62 @@
 package dataaccess.DAO;
 
-import dataaccess.DTO.Pitch;
+import dataaccess.DTO.Location;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class PitchDAO extends DAO<Pitch> {
+public class LocationDAO extends DAO<Location> {
 
     @Override
-    public Pitch findById(EntityManagerFactory entityManagerFactory, int id) {
+    public Location findById(EntityManagerFactory entityManagerFactory, int id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Pitch pitch = entityManager.find(Pitch.class, id);
+        Location location = entityManager.find(Location.class, id);
         entityManager.close();
-        return pitch;
+        return location;
     }
 
     @Override
-    public List<Pitch> findAll(EntityManagerFactory entityManagerFactory) {
+    public List<Location> findAll(EntityManagerFactory entityManagerFactory) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Pitch> pitches = entityManager.createQuery("from Pitch", Pitch.class).getResultList();
+        List<Location> locations = entityManager.createQuery("from Location", Location.class).getResultList();
         entityManager.close();
-        return pitches;
+        return locations;
     }
 
     @Override
-    public Pitch create(EntityManagerFactory entityManagerFactory, Pitch object) {
+    public Location create(EntityManagerFactory entityManagerFactory, Location object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(object);
         transaction.commit();
-        object = entityManager.find(Pitch.class, object.getIdPitch());
         entityManager.close();
-        return object;
+        return entityManager.find(Location.class, object.getIdLocation());
     }
 
     @Override
-    public Pitch update(EntityManagerFactory entityManagerFactory, int id, Pitch object) {
+    public Location update(EntityManagerFactory entityManagerFactory, int id, Location object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Pitch modifiedPitch = entityManager.find(Pitch.class, id);
-        modifiedPitch.setDegree(object.getDegree());
-        modifiedPitch.setName(object.getName());
-        entityManager.persist(modifiedPitch);
+        Location toUpdateLocation = entityManager.find(Location.class, id);
+        toUpdateLocation.setRegion(object.getRegion());
+        toUpdateLocation.setDepartment(object.getDepartment());
+        entityManager.persist(toUpdateLocation);
         transaction.commit();
-        object = entityManager.find(Pitch.class, modifiedPitch.getIdPitch());
+        object = entityManager.find(Location.class, toUpdateLocation.getIdLocation());
         entityManager.close();
         return object;
     }
 
     @Override
-    public void delete(EntityManagerFactory entityManagerFactory, Pitch object) {
+    public void delete(EntityManagerFactory entityManagerFactory, Location object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Pitch toDelete = entityManager.find(Pitch.class, object.getIdPitch());
+        Location toDelete = entityManager.find(Location.class, object.getIdLocation());
         System.out.println(toDelete);
         entityManager.remove(toDelete);
         transaction.commit();

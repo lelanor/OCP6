@@ -1,9 +1,11 @@
 package dataaccess.DTO;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "T_pitch")
+@Table(name = "PITCH")
 public class Pitch {
 
     @Id
@@ -16,6 +18,12 @@ public class Pitch {
     @JoinColumn(name = "idLevel", nullable = false)
     private Level degree;
 
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "TRACK_PITCH",
+            joinColumns = @JoinColumn(name = "idPitch"),
+            inverseJoinColumns = @JoinColumn(name = "idTrack"))
+    private List<Track> tracks = new ArrayList<>();
+
     public Pitch() {
     }
 
@@ -26,6 +34,14 @@ public class Pitch {
 
     public int getIdPitch() {
         return IdPitch;
+    }
+
+    public List<Track> getTracks() {
+        return tracks;
+    }
+
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
     }
 
     public String getName() {

@@ -1,63 +1,62 @@
 package dataaccess.DAO;
 
-import dataaccess.DTO.Pitch;
+import dataaccess.DTO.Spot;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class PitchDAO extends DAO<Pitch> {
+public class SpotDAO extends DAO<Spot> {
 
     @Override
-    public Pitch findById(EntityManagerFactory entityManagerFactory, int id) {
+    public Spot findById(EntityManagerFactory entityManagerFactory, int id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Pitch pitch = entityManager.find(Pitch.class, id);
+        Spot spot = entityManager.find(Spot.class, id);
         entityManager.close();
-        return pitch;
+        return spot;
     }
 
     @Override
-    public List<Pitch> findAll(EntityManagerFactory entityManagerFactory) {
+    public List<Spot> findAll(EntityManagerFactory entityManagerFactory) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Pitch> pitches = entityManager.createQuery("from Pitch", Pitch.class).getResultList();
+        List<Spot> spots = entityManager.createQuery("from Spot", Spot.class).getResultList();
         entityManager.close();
-        return pitches;
+        return spots;
     }
 
     @Override
-    public Pitch create(EntityManagerFactory entityManagerFactory, Pitch object) {
+    public Spot create(EntityManagerFactory entityManagerFactory, Spot object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(object);
         transaction.commit();
-        object = entityManager.find(Pitch.class, object.getIdPitch());
         entityManager.close();
-        return object;
+        return entityManager.find(Spot.class, object.getIdSpot());
     }
 
     @Override
-    public Pitch update(EntityManagerFactory entityManagerFactory, int id, Pitch object) {
+    public Spot update(EntityManagerFactory entityManagerFactory, int id, Spot object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Pitch modifiedPitch = entityManager.find(Pitch.class, id);
-        modifiedPitch.setDegree(object.getDegree());
-        modifiedPitch.setName(object.getName());
-        entityManager.persist(modifiedPitch);
+        Spot toUpdateSpot = entityManager.find(Spot.class, id);
+        toUpdateSpot.setName(object.getName());
+        toUpdateSpot.setSectors(object.getSectors());
+        entityManager.persist(toUpdateSpot);
         transaction.commit();
-        object = entityManager.find(Pitch.class, modifiedPitch.getIdPitch());
+        object = entityManager.find(Spot.class, toUpdateSpot.getIdSpot());
         entityManager.close();
         return object;
     }
 
     @Override
-    public void delete(EntityManagerFactory entityManagerFactory, Pitch object) {
+    public void delete(EntityManagerFactory entityManagerFactory, Spot object) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Pitch toDelete = entityManager.find(Pitch.class, object.getIdPitch());
+        Spot toDelete = entityManager.find(Spot.class, object.getIdSpot());
         System.out.println(toDelete);
         entityManager.remove(toDelete);
         transaction.commit();
