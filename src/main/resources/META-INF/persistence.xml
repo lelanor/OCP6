@@ -9,6 +9,11 @@
         <class>dataaccess.DTO.Level</class>
         <class>dataaccess.DTO.Pitch</class>
         <class>dataaccess.DTO.Track</class>
+        <class>dataaccess.DTO.Sector</class>
+        <class>dataaccess.DTO.Spot</class>
+        <class>dataaccess.DTO.Topo</class>
+        <class>dataaccess.DTO.Member</class>
+        <class>dataaccess.DTO.Location</class>
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect"/>
